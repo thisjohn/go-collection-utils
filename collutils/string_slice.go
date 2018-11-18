@@ -1,4 +1,4 @@
-package collutils // import "github.com/thisjohn/go-collection-utils"
+package collutils
 
 type Any = interface{}
 type StringSlice struct{}
