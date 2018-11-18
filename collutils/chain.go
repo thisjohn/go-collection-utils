@@ -41,20 +41,20 @@ func (c *Chain) addJob(methodName string, args ...interface{}) *Chain {
 }
 
 func (c *Chain) Value() (interface{}, error) {
-	value := reflect.ValueOf(c.data)
+	value := reflect.ValueOf(StringSlice(c.data))
 
 	for _, job := range c.jobs {
 		if value.Kind() != reflect.Slice {
 			return nil, fmt.Errorf("chaining non-slice data")
 		}
 
-		var inputs = []reflect.Value{value}
+		var inputs = []reflect.Value{}
 		for _, v := range job.args {
 			inputs = append(inputs, reflect.ValueOf(v))
 		}
 
 		log.Println("Call", job.methodName)
-		results := reflect.ValueOf(StringSlice{}).MethodByName(job.methodName).Call(inputs)
+		results := value.MethodByName(job.methodName).Call(inputs)
 		result := results[0]
 
 		if result.Kind() == reflect.Slice {
@@ -82,7 +82,7 @@ func (c *Chain) Value() (interface{}, error) {
 					return nil, fmt.Errorf("unhandled item kind %d", kind)
 				}
 			}
-			value = reflect.ValueOf(list)
+			value = reflect.ValueOf(StringSlice(list))
 		} else {
 			value = result
 		}

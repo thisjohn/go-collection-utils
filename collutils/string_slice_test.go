@@ -12,7 +12,7 @@ func TestStringSlice_Filter(t *testing.T) {
 	expectedData := []string{"banana", "cherry"}
 
 	// Act
-	newData := StringSlice{}.Filter(data, func(item string, i int) bool {
+	newData := StringSlice(data).Filter(func(item string, i int) bool {
 		return len(item)%2 == 0
 	})
 
@@ -26,7 +26,7 @@ func TestStringSlice_Map(t *testing.T) {
 	expectedData := []Any{5, 6, 6}
 
 	// Act
-	newData := StringSlice{}.Map(data, func(item string, i int) Any {
+	newData := StringSlice(data).Map(func(item string, i int) Any {
 		return len(item)
 	})
 
@@ -40,7 +40,7 @@ func TestStringSlice_Reduce(t *testing.T) {
 	expectedData := "@+apple+banana+cherry"
 
 	// Act
-	newData := StringSlice{}.Reduce(data, func(acc Any, item string) Any {
+	newData := StringSlice(data).Reduce(func(acc Any, item string) Any {
 		return acc.(string) + "+" + item
 	}, "@")
 

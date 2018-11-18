@@ -12,7 +12,7 @@ func TestIntSlice_Filter(t *testing.T) {
 	expectedData := []int{2}
 
 	// Act
-	newData := IntSlice{}.Filter(data, func(item int, i int) bool {
+	newData := IntSlice(data).Filter(func(item int, i int) bool {
 		return item%2 == 0
 	})
 
@@ -26,7 +26,7 @@ func TestIntSlice_Map(t *testing.T) {
 	expectedData := []Any{2, 4, 6}
 
 	// Act
-	newData := IntSlice{}.Map(data, func(item int, i int) Any {
+	newData := IntSlice(data).Map(func(item int, i int) Any {
 		return item * 2
 	})
 
@@ -40,7 +40,7 @@ func TestIntSlice_Reduce(t *testing.T) {
 	expectedData := 6
 
 	// Act
-	newData := IntSlice{}.Reduce(data, func(acc Any, item int) Any {
+	newData := IntSlice(data).Reduce(func(acc Any, item int) Any {
 		return acc.(int) + item
 	}, 0)
 
