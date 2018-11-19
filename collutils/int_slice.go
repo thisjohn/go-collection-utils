@@ -2,7 +2,7 @@ package collutils
 
 type IntSlice []int
 
-func (data IntSlice) Filter(fn func(int, int) bool) []int {
+func (data IntSlice) Filter(fn func(item int, index int) bool) []int {
 	var newData []int
 	for i, v := range data {
 		if fn(v, i) {
@@ -12,7 +12,7 @@ func (data IntSlice) Filter(fn func(int, int) bool) []int {
 	return newData
 }
 
-func (data IntSlice) Map(fn func(int, int) Any) []Any {
+func (data IntSlice) Map(fn func(item int, index int) Any) []Any {
 	var newData []Any
 	for i, v := range data {
 		newData = append(newData, fn(v, i))
@@ -20,7 +20,7 @@ func (data IntSlice) Map(fn func(int, int) Any) []Any {
 	return newData
 }
 
-func (data IntSlice) Reduce(fn func(Any, int) Any, init Any) Any {
+func (data IntSlice) Reduce(fn func(acc Any, item int) Any, init Any) Any {
 	res := init
 	for _, v := range data {
 		res = fn(res, v)
