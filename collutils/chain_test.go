@@ -7,21 +7,21 @@ import (
 )
 
 func TestChain(t *testing.T) {
-	data := []string{"apple", "banana", "cherry"}
+	data := []Any{"apple", "banana", "cherry"}
 
-	res, err := NewChain(data).
-		Filter(func(s string, i int) bool {
-			return len(s)%2 == 0
+	res, err := NewChain(AnySlice(data)).
+		Filter(func(item Any, index int) bool {
+			return len(item.(string))%2 == 0
 		}).
-		Map(func(s string, i int) Any {
-			return s[1:]
+		Map(func(item Any, index int) Any {
+			return len(item.(string)) * 2
 		}).
-		Reduce(func(acc Any, s string) Any {
-			return acc.(int) + len(s)
+		Reduce(func(acc Any, item Any) Any {
+			return acc.(int) + item.(int)
 		}, 0).
 		Value()
 
 	assrt := assert.New(t)
 	assrt.NoError(err)
-	assrt.Equal(10, res)
+	assrt.Equal(24, res)
 }
