@@ -1,4 +1,4 @@
-module github.com/thisjohn/go-collection-utils
+module github.com/thisjohn/go-collection-utils/collutils
 
 require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
