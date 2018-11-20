@@ -27,3 +27,13 @@ func (data IntSlice) Reduce(fn func(acc Any, item int) Any, init Any) Any {
 	}
 	return res
 }
+
+// Index returns index of item in data
+func (data IntSlice) Index(x int) int {
+	for i, v := range data {
+		if v == x {
+			return i
+		}
+	}
+	return -1
+}

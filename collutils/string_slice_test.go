@@ -47,3 +47,39 @@ func TestStringSlice_Reduce(t *testing.T) {
 	// Assert
 	assert.Equal(t, expectedData, newData)
 }
+
+func TestStringSlice_Compact(t *testing.T) {
+	// Prepare
+	data := []string{"apple", "", "banana", "cherry", "", ""}
+	expectedData := []string{"apple", "banana", "cherry"}
+
+	// Act
+	newData := StringSlice(data).Compact()
+
+	// Assert
+	assert.Equal(t, expectedData, newData)
+}
+
+func TestStringSlice_Index(t *testing.T) {
+	// Prepare
+	data := []string{"apple", "banana", "cherry"}
+	expectedIndex := 1
+
+	// Act
+	index := StringSlice(data).Index("banana")
+
+	// Assert
+	assert.Equal(t, expectedIndex, index)
+}
+
+func TestStringSlice_Index_NotFound(t *testing.T) {
+	// Prepare
+	data := []string{"apple", "banana", "cherry"}
+	expectedIndex := -1
+
+	// Act
+	index := StringSlice(data).Index("dog")
+
+	// Assert
+	assert.Equal(t, expectedIndex, index)
+}

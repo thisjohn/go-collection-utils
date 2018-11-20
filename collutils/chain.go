@@ -64,28 +64,11 @@ func (c *Chain) Value() (interface{}, error) {
 
 		if result.Kind() == reflect.Slice {
 			chainable := func() Chainable {
-				if result.Len() == 0 {
-					return AnySlice{}
-				}
-
-				retAt := result.Index(0)
-				if retAt.Kind() == reflect.Interface {
-					switch retAt.Interface().(type) {
-					case string:
-						return AnySlice{}
-					case int:
-						return AnySlice{}
-					}
-				} else if retAt.Kind() == reflect.String {
-					return AnySlice{}
-				} else if retAt.Kind() == reflect.Int {
-					return AnySlice{}
-				}
-
-				return nil
+				// NOTE: Alway return AnySlice now
+				return AnySlice{}
 			}()
 			if chainable == nil {
-				return nil, fmt.Errorf("unhandled kind")
+				return nil, fmt.Errorf("unhandled kind from result: %s", job.methodName)
 			}
 
 			for i := 0; i < result.Len(); i++ {

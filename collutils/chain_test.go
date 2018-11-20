@@ -7,6 +7,11 @@ import (
 )
 
 func TestChain(t *testing.T) {
+	type Obj struct {
+		item   string
+		times2 int
+	}
+
 	data := []Any{"apple", "banana", "cherry"}
 
 	res, err := NewChain(AnySlice(data)).
@@ -14,10 +19,13 @@ func TestChain(t *testing.T) {
 			return len(item.(string))%2 == 0
 		}).
 		Map(func(item Any, index int) Any {
-			return len(item.(string)) * 2
+			return &Obj{
+				item:   item.(string),
+				times2: len(item.(string)) * 2,
+			}
 		}).
 		Reduce(func(acc Any, item Any) Any {
-			return acc.(int) + item.(int)
+			return acc.(int) + item.(*Obj).times2
 		}, 0).
 		Value()
 

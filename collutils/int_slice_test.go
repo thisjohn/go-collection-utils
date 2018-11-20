@@ -47,3 +47,27 @@ func TestIntSlice_Reduce(t *testing.T) {
 	// Assert
 	assert.Equal(t, expectedData, newData)
 }
+
+func TestIntSlice_Index(t *testing.T) {
+	// Prepare
+	data := []int{1, 2, 3}
+	expectedIndex := 1
+
+	// Act
+	index := IntSlice(data).Index(2)
+
+	// Assert
+	assert.Equal(t, expectedIndex, index)
+}
+
+func TestIntSlice_Index_NotFound(t *testing.T) {
+	// Prepare
+	data := []int{1, 2, 3}
+	expectedIndex := -1
+
+	// Act
+	index := IntSlice(data).Index(4)
+
+	// Assert
+	assert.Equal(t, expectedIndex, index)
+}
