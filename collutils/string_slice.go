@@ -1,7 +1,9 @@
 package collutils
 
+// StringSlice represents an list of strings
 type StringSlice []string
 
+// Filter returns an array of items that pass `fn` test
 func (data StringSlice) Filter(fn func(item string, index int) bool) []string {
 	var newData []string
 	for i, v := range data {
@@ -12,6 +14,7 @@ func (data StringSlice) Filter(fn func(item string, index int) bool) []string {
 	return newData
 }
 
+// Map returns an array of new data by mapping each items
 func (data StringSlice) Map(fn func(item string, index int) Any) []Any {
 	var newData []Any
 	for i, v := range data {

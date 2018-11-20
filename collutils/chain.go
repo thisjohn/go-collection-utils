@@ -5,8 +5,10 @@ import (
 	"reflect"
 )
 
+// Chainable is an interface for propagating collection methods
 type Chainable interface {
 	Push(item interface{}) Chainable
+
 	Filter(fn func(item Any, index int) bool) []Any
 	Map(fn func(item Any, index int) Any) []Any
 	Reduce(fn func(acc Any, item Any) Any, init Any) Any
@@ -17,23 +19,28 @@ type job struct {
 	args       []interface{}
 }
 
+// Chain wraps collection methods and calling them one by one until `Value` is called
 type Chain struct {
 	chainable Chainable
 	jobs      []job
 }
 
+// NewChain creates a new `Chain`
 func NewChain(chainable Chainable) *Chain {
 	return &Chain{chainable: chainable}
 }
 
+// Filter adds job "Filter"
 func (c *Chain) Filter(fn func(item Any, index int) bool) *Chain {
 	return c.addJob("Filter", fn)
 }
 
+// Map adds job "Map"
 func (c *Chain) Map(fn func(item Any, index int) Any) *Chain {
 	return c.addJob("Map", fn)
 }
 
+// Reduce adds job "Reduce"
 func (c *Chain) Reduce(fn func(acc Any, item Any) Any, init Any) *Chain {
 	return c.addJob("Reduce", fn, init)
 }
@@ -46,6 +53,7 @@ func (c *Chain) addJob(methodName string, args ...interface{}) *Chain {
 	return c
 }
 
+// Value computes and returns chaining result
 func (c *Chain) Value() (interface{}, error) {
 	value := reflect.ValueOf(c.chainable)
 

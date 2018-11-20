@@ -1,7 +1,9 @@
 package collutils
 
+// IntSlice represents an list of ints
 type IntSlice []int
 
+// Filter returns an array of items that pass `fn` test
 func (data IntSlice) Filter(fn func(item int, index int) bool) []int {
 	var newData []int
 	for i, v := range data {
@@ -12,6 +14,7 @@ func (data IntSlice) Filter(fn func(item int, index int) bool) []int {
 	return newData
 }
 
+// Map returns an array of new data by mapping each items
 func (data IntSlice) Map(fn func(item int, index int) Any) []Any {
 	var newData []Any
 	for i, v := range data {
@@ -20,12 +23,13 @@ func (data IntSlice) Map(fn func(item int, index int) Any) []Any {
 	return newData
 }
 
+// Reduce boils down items into a single value
 func (data IntSlice) Reduce(fn func(acc Any, item int) Any, init Any) Any {
-	res := init
+	acc := init
 	for _, v := range data {
-		res = fn(res, v)
+		acc = fn(acc, v)
 	}
-	return res
+	return acc
 }
 
 // Index returns index of item in data
