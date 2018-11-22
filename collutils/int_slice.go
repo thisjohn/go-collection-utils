@@ -4,37 +4,37 @@ package collutils
 type IntSlice []int
 
 // Filter returns an array of items that pass `fn` test
-func (data IntSlice) Filter(fn func(item int, index int) bool) []int {
-	var newData []int
-	for i, v := range data {
+func (list IntSlice) Filter(fn func(item int, index int) bool) []int {
+	var data []int
+	for i, v := range list {
 		if fn(v, i) {
-			newData = append(newData, v)
+			data = append(data, v)
 		}
 	}
-	return newData
+	return data
 }
 
 // Map returns an array of new data by mapping each items
-func (data IntSlice) Map(fn func(item int, index int) Any) []Any {
-	var newData []Any
-	for i, v := range data {
-		newData = append(newData, fn(v, i))
+func (list IntSlice) Map(fn func(item int, index int) Any) []Any {
+	var data []Any
+	for i, v := range list {
+		data = append(data, fn(v, i))
 	}
-	return newData
+	return data
 }
 
 // Reduce boils down items into a single value
-func (data IntSlice) Reduce(fn func(acc Any, item int) Any, init Any) Any {
+func (list IntSlice) Reduce(fn func(acc Any, item int) Any, init Any) Any {
 	acc := init
-	for _, v := range data {
+	for _, v := range list {
 		acc = fn(acc, v)
 	}
 	return acc
 }
 
 // Index returns index of item in data
-func (data IntSlice) Index(x int) int {
-	for i, v := range data {
+func (list IntSlice) Index(x int) int {
+	for i, v := range list {
 		if v == x {
 			return i
 		}

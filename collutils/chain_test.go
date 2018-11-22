@@ -12,9 +12,9 @@ func TestChain(t *testing.T) {
 		times2 int
 	}
 
-	data := []Any{"apple", "banana", "cherry"}
+	list := []Any{"apple", "banana", "cherry"}
 
-	res, err := NewChain(L(data)).
+	res, err := NewChain(L(list)).
 		Filter(func(item Any, index int) bool {
 			return len(item.(string))%2 == 0
 		}).

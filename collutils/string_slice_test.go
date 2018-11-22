@@ -8,65 +8,65 @@ import (
 
 func TestStringSlice_Filter(t *testing.T) {
 	// Prepare
-	data := []string{"apple", "banana", "cherry"}
+	list := []string{"apple", "banana", "cherry"}
 	expectedData := []string{"banana", "cherry"}
 
 	// Act
-	newData := StringSlice(data).Filter(func(item string, i int) bool {
+	data := StringSlice(list).Filter(func(item string, i int) bool {
 		return len(item)%2 == 0
 	})
 
 	// Assert
-	assert.Equal(t, expectedData, newData)
+	assert.Equal(t, expectedData, data)
 }
 
 func TestStringSlice_Map(t *testing.T) {
 	// Prepare
-	data := []string{"apple", "banana", "cherry"}
+	list := []string{"apple", "banana", "cherry"}
 	expectedData := []Any{5, 6, 6}
 
 	// Act
-	newData := StringSlice(data).Map(func(item string, i int) Any {
+	data := StringSlice(list).Map(func(item string, i int) Any {
 		return len(item)
 	})
 
 	// Assert
-	assert.Equal(t, expectedData, newData)
+	assert.Equal(t, expectedData, data)
 }
 
 func TestStringSlice_Reduce(t *testing.T) {
 	// Prepare
-	data := []string{"apple", "banana", "cherry"}
+	list := []string{"apple", "banana", "cherry"}
 	expectedData := "@+apple+banana+cherry"
 
 	// Act
-	newData := StringSlice(data).Reduce(func(acc Any, item string) Any {
+	data := StringSlice(list).Reduce(func(acc Any, item string) Any {
 		return acc.(string) + "+" + item
 	}, "@")
 
 	// Assert
-	assert.Equal(t, expectedData, newData)
+	assert.Equal(t, expectedData, data)
 }
 
 func TestStringSlice_Compact(t *testing.T) {
 	// Prepare
-	data := []string{"apple", "", "banana", "cherry", "", ""}
+	list := []string{"apple", "", "banana", "cherry", "", ""}
 	expectedData := []string{"apple", "banana", "cherry"}
 
 	// Act
-	newData := StringSlice(data).Compact()
+	data := StringSlice(list).Compact()
 
 	// Assert
-	assert.Equal(t, expectedData, newData)
+	assert.Equal(t, expectedData, data)
 }
 
 func TestStringSlice_Index(t *testing.T) {
 	// Prepare
-	data := []string{"apple", "banana", "cherry"}
+	list := []string{"apple", "banana", "cherry"}
 	expectedIndex := 1
 
 	// Act
-	index := StringSlice(data).Index("banana")
+	index := StringSlice(list).Index("banana")
 
 	// Assert
 	assert.Equal(t, expectedIndex, index)
@@ -74,11 +74,11 @@ func TestStringSlice_Index(t *testing.T) {
 
 func TestStringSlice_Index_NotFound(t *testing.T) {
 	// Prepare
-	data := []string{"apple", "banana", "cherry"}
+	list := []string{"apple", "banana", "cherry"}
 	expectedIndex := -1
 
 	// Act
-	index := StringSlice(data).Index("dog")
+	index := StringSlice(list).Index("dog")
 
 	// Assert
 	assert.Equal(t, expectedIndex, index)
