@@ -1,15 +1,15 @@
 package collutils
 
-// AnySlice represents an list of items
-type AnySlice []Any
+// L represents any value list
+type L []Any
 
 // Push item into data slice
-func (data AnySlice) Push(item interface{}) Chainable {
+func (data L) Push(item interface{}) Chainable {
 	return append(data, item)
 }
 
 // Filter returns an array of items that pass `fn` test
-func (data AnySlice) Filter(fn func(item Any, index int) bool) []Any {
+func (data L) Filter(fn func(item Any, index int) bool) []Any {
 	var newData []Any
 	for i, v := range data {
 		if fn(v, i) {
@@ -20,7 +20,7 @@ func (data AnySlice) Filter(fn func(item Any, index int) bool) []Any {
 }
 
 // Map returns an array of new data by mapping each items
-func (data AnySlice) Map(fn func(item Any, index int) Any) []Any {
+func (data L) Map(fn func(item Any, index int) Any) []Any {
 	var newData []Any
 	for i, v := range data {
 		newData = append(newData, fn(v, i))
@@ -29,7 +29,7 @@ func (data AnySlice) Map(fn func(item Any, index int) Any) []Any {
 }
 
 // Reduce boils down items into a single value
-func (data AnySlice) Reduce(fn func(acc Any, item Any) Any, init Any) Any {
+func (data L) Reduce(fn func(acc Any, item Any) Any, init Any) Any {
 	acc := init
 	for _, v := range data {
 		acc = fn(acc, v)

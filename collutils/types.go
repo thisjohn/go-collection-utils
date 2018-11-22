@@ -1,4 +1,4 @@
 package collutils
 
-// Any alias of interface{}
+// Any alias to interface{}
 type Any = interface{}

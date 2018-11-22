@@ -5,6 +5,8 @@ import (
 	"reflect"
 )
 
+// TODO: Still under development
+
 // Chainable is an interface for propagating collection methods
 type Chainable interface {
 	Push(item interface{}) Chainable
@@ -72,8 +74,8 @@ func (c *Chain) Value() (interface{}, error) {
 
 		if result.Kind() == reflect.Slice {
 			chainable := func() Chainable {
-				// NOTE: Alway return AnySlice now
-				return AnySlice{}
+				// NOTE: Alway return L now
+				return L{}
 			}()
 			if chainable == nil {
 				return nil, fmt.Errorf("unhandled kind from result: %s", job.methodName)

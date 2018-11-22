@@ -14,7 +14,7 @@ func TestChain(t *testing.T) {
 
 	data := []Any{"apple", "banana", "cherry"}
 
-	res, err := NewChain(AnySlice(data)).
+	res, err := NewChain(L(data)).
 		Filter(func(item Any, index int) bool {
 			return len(item.(string))%2 == 0
 		}).
